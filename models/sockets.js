@@ -17,11 +17,14 @@ class Sockets {
     socketEvents() {
         // On connection
         this.io.on( 'connection', ( socket ) => {
-            console.log("Cliente conectado");
-            
-            // TODO: marcadores-activos
+                        
+            socket.emit('marcadores-activo', this.marcadores.activos);
 
-            // TODO: marcador-nuevo
+            socket.on( 'marcador-nuevo', ( marcador ) => {
+                this.marcadores.agregarMarcador( marcador );
+                socket.broadcast.emit('marcador-nuevo', marcador);
+            })
+            
 
             // TODO: marcador-actualizado
          
